@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Settings
+
+@{
 
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
 }
@@ -94,9 +96,9 @@
             <div>
                <form method="POST" class=" submit-form payment-form-africa">
                   
-                    <input type="text" class="form-control input-lg" placeholder="enter your company name here" >
-                    <input type="text" class="form-control input-lg" placeholder="enter your webhook url" >
-                    <input type="text" class="form-control input-lg" placeholder="enter verification types e.g bvn,nin,driversLicense" >
+                    <input type="text" class="form-control input-lg" placeholder="enter your company name here" asp-for="CompanyName">
+                    <input type="text" class="form-control input-lg" placeholder="enter your webhook url" asp-for="WebHookUrl" >
+                    <input type="text" class="form-control input-lg" placeholder="enter verification types e.g bvn,nin,driversLicense" asp-for="VerificationTypes">
 
                     <div class="form-group">
                         <div>
@@ -106,6 +108,8 @@
                     </div>
                 </form>
             </div>
+
+            <div class="text-center">@ViewBag.SecretKey</div>
         </div>
     </div>
 </div>
