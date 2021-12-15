@@ -15,8 +15,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContextPool<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DBConnection")));
+//builder.Services.AddDbContextPool<AppDbContext>(options =>
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("DBConnection")));
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
@@ -38,6 +38,10 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IContextAccessor, ContextAccessor>();
 builder.Services.AddScoped<IBvnVerficationTypes, BvnVerficationTypes>();
 builder.Services.AddHttpClient<IWebHookClient, WebHookClient>();
+builder.Services.AddEntityFrameworkNpgsql().AddDbContext<AppDbContext>(options =>
+{
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DbConnection"));
+});
 
 var app = builder.Build();
 
