@@ -41,7 +41,7 @@ namespace Net_IdentityPass_API.Controllers
 
             }
 
-            ViewBag.SecretKey = secretKey;
+            ViewBag.SecretKey = $"Your secret Key is: {secretKey}";
             return View();
         }
 
