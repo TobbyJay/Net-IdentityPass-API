@@ -27,7 +27,7 @@ namespace Net_IdentityPass_API.Controllers
             var secretKey = GenerateSecretKey();
 
             // get and save company name and url
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 var setting = new Settings
                 {

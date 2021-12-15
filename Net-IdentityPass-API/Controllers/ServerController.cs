@@ -16,7 +16,12 @@ namespace Net_IdentityPass_API.Controllers
         [Route("/api/server/getinfofromsecretkey")]
         public IActionResult GetInfoFromKey(string secretKey)
         {
-            return Ok(new List<string>());
+            var getInfo = _context.Settings
+                         .Where(s => s.SecretKey == secretKey)
+                         .FirstOrDefault();
+
+            return Ok(getInfo);
         }
+
     }
 }

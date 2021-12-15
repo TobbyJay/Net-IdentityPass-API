@@ -94,7 +94,7 @@
 
             <h4 class="mb-4 text-center text-dark">Complete your setup</h4>
             <div>
-               <form method="POST" class=" submit-form payment-form-africa">
+               <form method="POST" asp-controller="user" asp-action="settings" class=" submit-form payment-form-africa">
                   
                     <input type="text" class="form-control input-lg" placeholder="enter your company name here" asp-for="CompanyName">
                     <input type="text" class="form-control input-lg" placeholder="enter your webhook url" asp-for="WebHookUrl" >
