@@ -1,4 +1,5 @@
-﻿using DTOs.Responses.SingleVerifications;
+﻿using DTOs.Responses;
+using DTOs.Responses.SingleVerifications;
 using Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -14,12 +15,15 @@ namespace Services.Implementations
         private readonly JsonSerializerOptions _options;
         private bool disposedValue;
         private HttpClient _httpClient;
-        public BvnVerficationTypes()
+        private readonly IWebHookClient _webHookClient;
+
+        public BvnVerficationTypes(IWebHookClient webHookClient)
         {
             _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
             _httpClient = new HttpClient();
+            _webHookClient = webHookClient;
         }
-        public async Task<Response> VerfifyBvnInfoLevel1(string number, string secretKey, bool environmentType)
+        public async Task<Response> VerfifyBvnInfoLevel1(string number, string secretKey)
         {
             var value = new Dictionary<string, string>
             {
@@ -39,9 +43,10 @@ namespace Services.Implementations
             };
 
             return verify;
+
         }
 
-        public async Task<Response> VerfifyBvnInfoLevel2(string number, string secretKey, bool environmentType)
+        public async Task<WebhookResponse> VerfifyBvnInfoLevel2(string number, string secretKey)
         {
             var value = new Dictionary<string, string>
             {
@@ -52,18 +57,18 @@ namespace Services.Implementations
 
             var result = await GetHttpClientSetup(url, value, secretKey);
 
-            var verificationDetails = JsonSerializer.Deserialize<Response>(result, _options);
+            var verificationDetails = JsonSerializer.Deserialize<BvnVerificationLevelTwo>(result, _options);
 
-            var verify = new Response
+            var verify = new WebhookResponse
             {
-                Status = "Success",
+                Status = "success",
                 Message = "Bvn Level 1 verification successful"
             };
 
             return verify;
         }
 
-        public async Task<Response> VerfifyBvnInfoWithFace(string number, string image, string secretKey, bool environmentType)
+        public async Task<Response> VerfifyBvnInfoWithFace(string number, string image, string secretKey)
         {
             var value = new Dictionary<string, string>
             {

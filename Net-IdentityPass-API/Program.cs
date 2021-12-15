@@ -2,6 +2,8 @@ using Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Net_IdentityPass_API.Helpers;
+using Services.Implementations;
+using Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +36,9 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddScoped<IContextAccessor, ContextAccessor>();
+builder.Services.AddScoped<IBvnVerficationTypes, BvnVerficationTypes>();
+builder.Services.AddHttpClient<IWebHookClient, WebHookClient>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
