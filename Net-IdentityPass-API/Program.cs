@@ -47,15 +47,17 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 
-app.UseAuthorization(); 
 app.UseRouting();
+
+app.UseAuthorization();
+
 app.UseStaticFiles();
 
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
         name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}");
+        pattern: "{controller=Account}/{action=LogIn}/{id?}");
 });
 app.MapControllers();
 

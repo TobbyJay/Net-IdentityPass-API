@@ -1,0 +1,116 @@
+﻿@{
+
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+<div class="content-wrapper p-0 pt-4">
+    <div class="welcome-message">
+        <div class="d-lg-flex justify-content-between align-items-center">
+            <div class="pr-5 image-border"><img src="~/dashboardStyle/images/dashboard/welcome.png" alt="welcome"></div>
+            <div class="pl-4 text-white">
+                <h2 class="text-white font-weight-bold mb-3">Welcome to Vherifai</h2>
+                <p class="pb-0 mb-1 ">Congratulations @ViewBag.FullName! Your account has been setup and you are ready.</p>
+                <p>You can get started by setting your account.</p>
+            </div>
+            <div class="pl-4">
+                <button type="button" class="btn btn-primary" id="skip-mesages">Close</button>
+                @*<button type="button" class="btn btn-warning ml-lg-0 ml-xl-2 ml-2 ml-l mt-lg-2 mt-xl-0">Setup Manually</button>*@
+            </div>
+        </div>
+    </div>
+
+    @*<div class="text-center">
+            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">Click for demo<i class="mdi mdi-play-circle ml-1"></i></button>
+        </div>
+        <div class="modal fade show" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-modal="true" style="display: block;">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Modal body text goes here.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success">Submit</button>
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+    <div class="tab-content home-tab-content">
+        <div class="tab-pane fade show active" id="Dashboards-1" role="tabpanel" aria-labelledby="Dashboards-tab">
+            <div class="d-sm-flex justify-content-between align-items-center my-3">
+                <h2 class="text-dark font-weight-light">Overview</h2>
+                @*<div class="link-btn-group d-flex justify-content-start align-items-start">
+                        <button type="button" class="btn btn-link text-dark py-0 pl-0">Add info</button>
+                        <button type="button" class="btn btn-link text-dark py-0">Get updated by email</button>
+                        <button type="button" class="btn btn-link text-dark py-0">See more</button>
+                    </div>*@
+            </div>
+            <div class="row">
+
+
+                <div class="col-xl-4 grid-margin stretch-card">
+                    <div class="card shadow-sm bg-white rounded">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p class="text-dark font-weight-medium mb-3">Settings</p>
+
+                                    <h5 class="text-dark  mt-3">Set-up</h5>
+
+
+                                </div>
+                                <div class="col-md-6 mt-5 text-center">
+
+                                    <button type="button" class="btn btn-primary w-75" onclick="document.getElementById('id01').style.display='block'">Set-Up </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+              
+            </div>
+
+            <div class="row">
+
+            </div>
+
+         
+        </div>
+    </div>
+</div>
+
+<div id="id01" class="w3-modal">
+    <div class="w3-modal-content">
+        <div class="w3-container">
+            <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+
+            <h4 class="mb-4 text-center text-dark">Complete your setup</h4>
+            <div>
+               <form method="POST" class=" submit-form payment-form-africa">
+                  
+                    <input type="text" class="form-control input-lg" placeholder="enter your company name here" >
+                    <input type="text" class="form-control input-lg" placeholder="enter your webhook url" >
+                    <input type="text" class="form-control input-lg" placeholder="enter verification types e.g bvn,nin,driversLicense" >
+
+                    <div class="form-group">
+                        <div>
+
+                            <button type="submit" class="btn btn-success btn-block rounded">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/dashboardStyle/js/modal-demo.js"></script>
+
+}
