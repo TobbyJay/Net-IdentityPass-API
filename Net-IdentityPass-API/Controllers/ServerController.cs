@@ -1,5 +1,7 @@
 ﻿using Data;
 using DTOs.Requests;
+using DTOs.Responses.BulkVerifications;
+using DTOs.Responses.SingleVerifications;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
 
@@ -73,6 +75,54 @@ namespace Net_IdentityPass_API.Controllers
 
             return Ok(response);
 
+
+        }
+
+        [HttpPost]
+        [Route("/api/server/verify/bulk_verification")]
+        public async Task<ActionResult> BulkVerification([FromBody] VerificationRequest request)
+        {
+            var getTypes = GetVerificationTypes(request.Type.ToLower());
+
+            var bvnResponse = new BvnResponse();
+            var driverLicenseResponse = new DriverseLicense();
+            var creditBureauResponse = new CreditBureau();
+
+            foreach (var type in getTypes)
+            {
+                if (type.Trim() == "bvn")
+                {
+                   bvnResponse = await _bvnVerificationTypes.VerfifyBvnInfoLevel2(request.BvnNumber, "test_231qza7t1kxejz21eg26e5:m1YlNf4sqfSQ0GEKnC8j2oZ-dyc", request.UserReferenceId);
+
+                }else if(type.Trim() == "drivers license")
+                {
+                    driverLicenseResponse = await _driversLicenseVerificationType.VerfifyDriversLicense(request.Dob, request.FrscNumber, "test_231qza7t1kxejz21eg26e5:m1YlNf4sqfSQ0GEKnC8j2oZ-dyc", request.UserReferenceId);
+
+                }
+            }
+
+            var response = new BulkResponse
+            {
+                Message = "bulk verification successful",
+                Bvn = bvnResponse,
+                DriverseLicense = driverLicenseResponse,
+            };
+
+            // process the webHook
+            await _webHookClient.MakeBulkVerificationHTTPRequest(request.Url, response);
+
+            return Ok(response);
+
+
+        }
+
+        private string[] GetVerificationTypes(string type)
+        {
+            String[] seperator = { "," };
+            String[] splitEvent = type.Split(seperator,
+               StringSplitOptions.RemoveEmptyEntries);
+
+            return splitEvent;
 
         }
     }
