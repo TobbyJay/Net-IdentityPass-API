@@ -82,6 +82,8 @@ namespace Net_IdentityPass_API.Controllers
         [Route("/api/server/verify/bulk_verification")]
         public async Task<ActionResult> BulkVerification([FromBody] VerificationRequest request)
         {
+            // coming back to clean this code like my life depends on it, it was all just vibes and inshal allah ooo
+
             var getTypes = GetVerificationTypes(request.Type.ToLower());
 
             var bvnResponse = new BvnResponse();
