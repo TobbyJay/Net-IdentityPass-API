@@ -8,9 +8,8 @@ using System.Threading.Tasks;
 
 namespace Services.Interfaces
 {
-    public interface IBvnVerficationTypes
+    public interface IDriversLicenseVerificationType
     {
-        public Task<BvnResponse> VerfifyBvnInfoLevel2(string number, string secretKey, string referenceId);
-
+        public Task<DriverseLicense> VerfifyDriversLicense(string dob, string number, string secretKey, string referenceId);
     }
 }

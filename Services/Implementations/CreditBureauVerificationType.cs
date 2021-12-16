@@ -10,44 +10,40 @@ using System.Threading.Tasks;
 
 namespace Services.Implementations
 {
-    public class BvnVerficationTypes : IBvnVerficationTypes
+    public class CreditBureauVerificationType : ICreditBureauVerificationType
     {
         private readonly JsonSerializerOptions _options;
         private bool disposedValue;
         private HttpClient _httpClient;
-        private readonly IWebHookClient _webHookClient;
-
-        public BvnVerficationTypes(IWebHookClient webHookClient)
+        public CreditBureauVerificationType()
         {
             _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
             _httpClient = new HttpClient();
-            _webHookClient = webHookClient;
         }
-      
-        public async Task<BvnResponse> VerfifyBvnInfoLevel2(string number, string secretKey, string referenceId)
+        public async Task<CreditBureau> VerifyCreditBureau(string phoneNumber, string firstName, string secretKey, string referenceId)
         {
             var value = new Dictionary<string, string>
             {
-                { "number", number}
+                { "phone_number", phoneNumber },
+                { "first_name", firstName}
             };
 
-            var url = $"https://sandbox.myidentitypass.com/api/v1/biometrics/merchant/data/verification/bvn";
+            var url = $"https://sandbox.myidentitypass.com/api/v1/biometrics/merchant/data/verification/credit_bureau";
 
             var result = await GetHttpClientSetup(url, value, secretKey);
 
-            var response = JsonSerializer.Deserialize<BvnVerificationLevelTwo>(result, _options);
+            var response = JsonSerializer.Deserialize<CreditBureauResponse>(result, _options);
 
-            var verificationDetails = new ClientResponse<BvnVerificationLevelTwo>
+            var verificationDetails = new ClientResponse<CreditBureauResponse>
             {
                 Value = response,
             };
 
-            var res = new BvnResponse
+            var res = new CreditBureau
             {
                 UserReferenceId = referenceId,
                 Response = verificationDetails
             };
-
 
             return res;
         }
