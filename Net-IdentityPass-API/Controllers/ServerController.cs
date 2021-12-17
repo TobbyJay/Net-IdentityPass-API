@@ -91,7 +91,7 @@ namespace Net_IdentityPass_API.Controllers
         {
             if (string.IsNullOrEmpty(request.ViNumber) || string.IsNullOrEmpty(request.Url)) return Ok(false);
 
-            var response = vinVerificationTypes.LookUpVin(request.ViNumber, request.LastName, request.State, "test_231qza7t1kxejz21eg26e5:m1YlNf4sqfSQ0GEKnC8j2oZ-dyc", request.UserReferenceId);
+            var response = await vinVerificationTypes.LookUpVin(request.ViNumber, request.LastName, request.State, "test_231qza7t1kxejz21eg26e5:m1YlNf4sqfSQ0GEKnC8j2oZ-dyc", request.UserReferenceId);
 
             // process the webHook
             await _webHookClient.MakeHTTPRequest(request.Url, response);
