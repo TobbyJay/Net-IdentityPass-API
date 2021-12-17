@@ -10,44 +10,43 @@ using System.Threading.Tasks;
 
 namespace Services.Implementations
 {
-    public class BvnVerficationTypes : IBvnVerficationTypes
+    public class NinVerificationTypes : INinVerificationTypes
     {
         private readonly JsonSerializerOptions _options;
         private bool disposedValue;
         private HttpClient _httpClient;
         private readonly IWebHookClient _webHookClient;
 
-        public BvnVerficationTypes(IWebHookClient webHookClient)
+        public NinVerificationTypes(IWebHookClient webHookClient)
         {
             _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
             _httpClient = new HttpClient();
             _webHookClient = webHookClient;
         }
-      
-        public async Task<BvnResponse> VerfifyBvnInfoLevel2(string number, string secretKey, string referenceId)
+        public async Task<NinResponse> LookUpNin(string number, string secretKey, string referenceId)
         {
             var value = new Dictionary<string, string>
             {
                 { "number", number}
             };
 
-            var url = $"https://sandbox.myidentitypass.com/api/v1/biometrics/merchant/data/verification/bvn";
+            var url = $"https://sandbox.myidentitypass.com/api/v1/biometrics/merchant/data/verification/nin_wo_face";
 
             var result = await GetHttpClientSetup(url, value, secretKey);
 
-            var response = JsonSerializer.Deserialize<BvnVerificationLevelTwo>(result, _options);
+            var response = JsonSerializer.Deserialize<LookUpNinResponse>(result, _options);
 
-            var verificationDetails = new ClientResponse<BvnVerificationLevelTwo>
+            var verificationDetails = new ClientResponse<LookUpNinResponse>
             {
                 Value = response
             };
 
-            var res = new BvnResponse
+            var res = new NinResponse
             {
-                Status = verificationDetails.Value.Status,
-                Details = verificationDetails.Value.Detail,
                 UserReferenceId = referenceId,
-                Response = verificationDetails
+                Response = verificationDetails,
+                Status = verificationDetails.Value.Status,
+                Details = verificationDetails.Value.Detail                
             };
 
 

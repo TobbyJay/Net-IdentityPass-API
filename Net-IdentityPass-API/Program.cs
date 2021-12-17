@@ -37,9 +37,18 @@ builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddScoped<IContextAccessor, ContextAccessor>();
 builder.Services.AddScoped<IBvnVerficationTypes, BvnVerficationTypes>();
+builder.Services.AddScoped<INinVerificationTypes, NinVerificationTypes>();
+builder.Services.AddScoped<IVinVerificationTypes, VinVerificationTypes>();
 builder.Services.AddScoped<ICreditBureauVerificationType, CreditBureauVerificationType>();
 builder.Services.AddScoped<IDriversLicenseVerificationType, DriversLicenseVerificationType>();
 builder.Services.AddHttpClient<IWebHookClient, WebHookClient>();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", builder =>
+    builder.AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
+});
 builder.Services.AddEntityFrameworkNpgsql().AddDbContext<AppDbContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("DbConnection"));
@@ -56,10 +65,10 @@ if (app.Environment.IsProduction())
 
 app.UseHttpsRedirection();
 
+app.UseCors("CorsPolicy");
 app.UseAuthentication();
 
 app.UseRouting();
-
 app.UseAuthorization();
 
 app.UseStaticFiles();
