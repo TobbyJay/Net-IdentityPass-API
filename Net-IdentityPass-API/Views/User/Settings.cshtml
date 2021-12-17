@@ -4,14 +4,39 @@
 
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
 }
+<style>
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+</style>
 <div class="content-wrapper p-0 pt-4">
     <div class="welcome-message">
         <div class="d-lg-flex justify-content-between align-items-center">
             <div class="pr-5 image-border"><img src="~/dashboardStyle/images/dashboard/welcome.png" alt="welcome"></div>
             <div class="pl-4 text-white">
                 <h2 class="text-white font-weight-bold mb-3">Welcome to Vherifai</h2>
-                <p class="pb-0 mb-1 ">Congratulations @ViewBag.FullName! Your account has been setup and you are ready.</p>
-                <p>You can get started by setting your account.</p>
+@*                <p class="pb-0 mb-1 ">Congratulations @ViewBag.FullName! Your account has been setup and you are ready.</p>
+*@                <p>You can get started by setting your account.</p>
             </div>
             <div class="pl-4">
                 <button type="button" class="btn btn-primary" id="skip-mesages">Close</button>
@@ -45,7 +70,7 @@
     <div class="tab-content home-tab-content">
         <div class="tab-pane fade show active" id="Dashboards-1" role="tabpanel" aria-labelledby="Dashboards-tab">
             <div class="d-sm-flex justify-content-between align-items-center my-3">
-                <h2 class="text-dark font-weight-light">Overview</h2>
+                <h2 class="text-dark font-weight-light">Set-up Your Access</h2>
                 @*<div class="link-btn-group d-flex justify-content-start align-items-start">
                         <button type="button" class="btn btn-link text-dark py-0 pl-0">Add info</button>
                         <button type="button" class="btn btn-link text-dark py-0">Get updated by email</button>
@@ -55,7 +80,7 @@
             <div class="row">
 
 
-                <div class="col-xl-4 grid-margin stretch-card">
+               @* <div class="col-xl-4 grid-margin stretch-card">
                     <div class="card shadow-sm bg-white rounded">
                         <div class="card-body">
                             <div class="row">
@@ -74,12 +99,34 @@
 
                         </div>
                     </div>
-                </div>
+                </div>*@
               
+
             </div>
 
-            <div class="row">
+              <div>
+               <form method="POST" asp-controller="user" asp-action="settings" class=" submit-form payment-form-africa">
+                  
+                   <label>Company name</label>
+                    <input type="text" class="form-control input-lg" placeholder="enter your company name here" asp-for="CompanyName">
+                    <label>WebHook URL</label>
+                    <input type="text" class="form-control input-lg" placeholder="enter your webhook url" asp-for="WebHookUrl" >
+                    <label>Verification types </label> <a class="text-body" style="color:black;" href="#" data-toggle="tooltip" title="( Only fill the form below if you want to handle bulk verification in your application/site. Note that we currently only support ' bvn, drivers_license , nin, vin ' for multiple verification types. )." ><b>(?)</b></a>
+                  
+                    <input type="text" class="form-control input-lg" placeholder="enter verification types e.g bvn,nin,drivers_license" asp-for="VerificationTypes">
 
+                    <div class="form-group">
+                        <div>
+
+                            <button type="submit" class="btn btn-success btn-block rounded">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+           @* <div class="text-center">@ViewBag.SecretKey</div>*@
+            <div class="row">
+                   <div class="text-center">@ViewBag.SecretKey</div>
             </div>
 
          
@@ -96,9 +143,13 @@
             <div>
                <form method="POST" asp-controller="user" asp-action="settings" class=" submit-form payment-form-africa">
                   
+                   <label>Company name</label>
                     <input type="text" class="form-control input-lg" placeholder="enter your company name here" asp-for="CompanyName">
+                    <label>WebHook URL</label>
                     <input type="text" class="form-control input-lg" placeholder="enter your webhook url" asp-for="WebHookUrl" >
-                    <input type="text" class="form-control input-lg" placeholder="enter verification types e.g bvn,nin,driversLicense" asp-for="VerificationTypes">
+                    <label>Verification types </label> <span class="tooltip">Please Hover over me </span><span class="tooltiptext">Only add multiple verification types if you want to handle bulk verification in your application/site. Note that we currently only support " bvn, drivers_license , nin, vin " for multiple verification types.</span>
+                  
+                    <input type="text" class="form-control input-lg" placeholder="enter verification types e.g bvn,nin,drivers_license" asp-for="VerificationTypes">
 
                     <div class="form-group">
                         <div>
