@@ -19,7 +19,7 @@ namespace Services.Implementations
             Client = client;
         }
 
-        public async Task<(HttpResponseMessage Response, string url)> MakeBvnVeririfcationHTTPRequest(string url, BvnResponse sendHook)
+        public async Task<(HttpResponseMessage Response, string url)> MakeHTTPRequest(string url, Object sendHook)
         {
             if (sendHook == null) return (null, string.Empty);
 
@@ -28,7 +28,7 @@ namespace Services.Implementations
                 url = "https://localhost:5001/api/Webhook/notify";
             }
 
-            sendHook.WebhookUrl = url;
+            //sendHook.WebhookUrl = url;
             var serialize = JsonSerializer.Serialize(sendHook);
 
             //=============================
