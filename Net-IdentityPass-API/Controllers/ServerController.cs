@@ -54,9 +54,8 @@ namespace Net_IdentityPass_API.Controllers
             // process the webHook
             await _webHookClient.MakeHTTPRequest(request.Url, response);
 
-            return Ok(response.Status);
+            return Ok(new { status = response.Status, response = response });
 
-           
         }
 
         [HttpPost]
@@ -68,7 +67,7 @@ namespace Net_IdentityPass_API.Controllers
             // process the webHook
             await _webHookClient.MakeHTTPRequest(request.Url, response);
 
-            return Ok(response.Status);
+            return Ok(new { status = response.Status, response = response });
 
 
         }
@@ -83,7 +82,7 @@ namespace Net_IdentityPass_API.Controllers
             // process the webHook
             await _webHookClient.MakeHTTPRequest(request.Url, response);
 
-            return Ok(response.Status);
+            return Ok(new { status = response.Status, response = response });
         }
 
         [HttpPost("/api/server/verify/vin")]
@@ -96,7 +95,7 @@ namespace Net_IdentityPass_API.Controllers
             // process the webHook
             await _webHookClient.MakeHTTPRequest(request.Url, response);
 
-            return Ok(response.Status);
+            return Ok(new { status = response.Status, response = response });
         }
 
         [HttpPost]
@@ -108,7 +107,7 @@ namespace Net_IdentityPass_API.Controllers
             // process the webHook
             await _webHookClient.MakeHTTPRequest(request.Url, response);
 
-            return Ok(response.Status);
+            return Ok(new { status = response.Status , response = response});
 
 
         }
@@ -123,6 +122,8 @@ namespace Net_IdentityPass_API.Controllers
 
             var bvnResponse = new BvnResponse();
             var driverLicenseResponse = new DriverseLicense();
+            var vinResponse = new VinResponse();
+            var ninResponse = new NinResponse();
             var creditBureauResponse = new CreditBureau();
 
             foreach (var type in getTypes)
@@ -135,6 +136,14 @@ namespace Net_IdentityPass_API.Controllers
                 {
                     driverLicenseResponse = await _driversLicenseVerificationType.VerfifyDriversLicense(request.Dob, request.FrscNumber, "test_231qza7t1kxejz21eg26e5:m1YlNf4sqfSQ0GEKnC8j2oZ-dyc", request.UserReferenceId);
 
+                }else if(type.Trim() == "vin")
+                {
+                    vinResponse = await vinVerificationTypes.LookUpVin(request.ViNumber, request.LastName, request.State, "test_231qza7t1kxejz21eg26e5:m1YlNf4sqfSQ0GEKnC8j2oZ-dyc", request.UserReferenceId);
+
+                }else if(type.Trim() == "nin")
+                {
+                    ninResponse = await ninVerificationTypes.LookUpNin(request.NiNumber, "test_231qza7t1kxejz21eg26e5:m1YlNf4sqfSQ0GEKnC8j2oZ-dyc", request.UserReferenceId);
+
                 }
             }
 
@@ -144,12 +153,14 @@ namespace Net_IdentityPass_API.Controllers
                 Status = bvnResponse.Status,
                 Bvn = bvnResponse,
                 DriverseLicense = driverLicenseResponse,
+                Nin = ninResponse,
+                Vin = vinResponse
             };
 
             // process the webHook
             await _webHookClient.MakeHTTPRequest(request.Url, response);
 
-            return Ok(response.Status);
+            return Ok(new { status = response.Status, response = response });
 
         }
 
