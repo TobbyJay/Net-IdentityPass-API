@@ -14,15 +14,24 @@ namespace Net_IdentityPass_API.Controllers
         private readonly IBvnVerficationTypes _bvnVerificationTypes;
         private readonly ICreditBureauVerificationType _creditBureauVerificationType;
         private readonly IDriversLicenseVerificationType _driversLicenseVerificationType;
+        private readonly IVinVerificationTypes vinVerificationTypes;
+        private readonly INinVerificationTypes ninVerificationTypes;
         private readonly IWebHookClient _webHookClient;
 
-        public ServerController(AppDbContext context, IBvnVerficationTypes bvnVerificationTypes, IWebHookClient webHookClient, ICreditBureauVerificationType creditBureauVerificationType, IDriversLicenseVerificationType driversLicenseVerificationType)
+        public ServerController(AppDbContext context, 
+            IBvnVerficationTypes bvnVerificationTypes, 
+            IWebHookClient webHookClient, ICreditBureauVerificationType creditBureauVerificationType, 
+            IDriversLicenseVerificationType driversLicenseVerificationType,
+            IVinVerificationTypes vinVerificationTypes,
+            INinVerificationTypes ninVerificationTypes)
         {
             _context = context;
             _bvnVerificationTypes = bvnVerificationTypes;
             _webHookClient = webHookClient;
             _creditBureauVerificationType = creditBureauVerificationType;
             _driversLicenseVerificationType = driversLicenseVerificationType;
+            this.vinVerificationTypes = vinVerificationTypes;
+            this.ninVerificationTypes = ninVerificationTypes;
         }
 
         [HttpGet]
@@ -45,9 +54,7 @@ namespace Net_IdentityPass_API.Controllers
             // process the webHook
             await _webHookClient.MakeBvnVeririfcationHTTPRequest(request.Url, response);
 
-            return Ok(response);
-
-           
+            return Ok(response);           
         }
 
         [HttpPost]
@@ -62,6 +69,32 @@ namespace Net_IdentityPass_API.Controllers
             return Ok(response);
 
 
+        }
+
+        [HttpPost("/api/server/verify/nin")]
+        public async Task<IActionResult> VerifyNin([FromBody] VerificationRequest request)
+        {
+            if (string.IsNullOrEmpty(request.NiNumber) || string.IsNullOrEmpty(request.Url)) return Ok(false);
+            
+            var response = await ninVerificationTypes.LookUpNin(request.NiNumber, "test_231qza7t1kxejz21eg26e5:m1YlNf4sqfSQ0GEKnC8j2oZ-dyc", request.UserReferenceId);
+
+            // process the webHook
+            await _webHookClient.MakeHTTPRequest(request.Url, response);
+
+            return Ok(response.Status);
+        }
+
+        [HttpPost("/api/server/verify/vin")]
+        public async Task<IActionResult> VerifyVin([FromBody] VerificationRequest request)
+        {
+            if (string.IsNullOrEmpty(request.ViNumber) || string.IsNullOrEmpty(request.Url)) return Ok(false);
+
+            var response = vinVerificationTypes.LookUpVin(request.ViNumber, request.LastName, request.State, "test_231qza7t1kxejz21eg26e5:m1YlNf4sqfSQ0GEKnC8j2oZ-dyc", request.UserReferenceId);
+
+            // process the webHook
+            await _webHookClient.MakeHTTPRequest(request.Url, response);
+
+            return Ok(response.Status);
         }
 
         [HttpPost]

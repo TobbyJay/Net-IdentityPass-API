@@ -173,16 +173,16 @@ namespace Services.Implementations
 
 
         /// Sample bulk verification Data
-//        {
-//  "userReferenceId": "20213455ttyllo",
-//  "type": "bvn , drivers license",
-//  "bvnNumber": "54651333604",
-//  "phoneNumber": "",
-//  "firstName": "",
-//  "dob": "1999-12-21",
-//  "frscNumber": "AAD23208212298",
-//  "url": "https://webhook.site/76af3f3b-abd9-418a-9a5c-ca55b645c339"
-//}
+        //        {
+        //  "userReferenceId": "20213455ttyllo",
+        //  "type": "bvn , drivers license",
+        //  "bvnNumber": "54651333604",
+        //  "phoneNumber": "",
+        //  "firstName": "",
+        //  "dob": "1999-12-21",
+        //  "frscNumber": "AAD23208212298",
+        //  "url": "https://webhook.site/76af3f3b-abd9-418a-9a5c-ca55b645c339"
+        //}
 
-}
+    }
 }

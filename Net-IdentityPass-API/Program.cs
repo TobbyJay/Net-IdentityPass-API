@@ -37,6 +37,8 @@ builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddScoped<IContextAccessor, ContextAccessor>();
 builder.Services.AddScoped<IBvnVerficationTypes, BvnVerficationTypes>();
+builder.Services.AddScoped<INinVerificationTypes, NinVerificationTypes>();
+builder.Services.AddScoped<IVinVerificationTypes, VinVerificationTypes>();
 builder.Services.AddScoped<ICreditBureauVerificationType, CreditBureauVerificationType>();
 builder.Services.AddScoped<IDriversLicenseVerificationType, DriversLicenseVerificationType>();
 builder.Services.AddHttpClient<IWebHookClient, WebHookClient>();

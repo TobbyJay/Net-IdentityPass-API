@@ -10,47 +10,52 @@ using System.Threading.Tasks;
 
 namespace Services.Implementations
 {
-    public class BvnVerficationTypes : IBvnVerficationTypes
+    public class VinVerificationTypes : IVinVerificationTypes
     {
         private readonly JsonSerializerOptions _options;
         private bool disposedValue;
         private HttpClient _httpClient;
         private readonly IWebHookClient _webHookClient;
 
-        public BvnVerficationTypes(IWebHookClient webHookClient)
+        public VinVerificationTypes(IWebHookClient webHookClient)
         {
             _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
             _httpClient = new HttpClient();
             _webHookClient = webHookClient;
         }
-      
-        public async Task<BvnResponse> VerfifyBvnInfoLevel2(string number, string secretKey, string referenceId)
+
+        public async Task<VinResponse> LookUpVin(string number, string last_name, string state, string secretKey, string referenceId)
         {
             var value = new Dictionary<string, string>
             {
-                { "number", number}
+                { "number", number},
+                { "last_name", last_name},
+                { "state", state}
             };
 
-            var url = $"https://sandbox.myidentitypass.com/api/v1/biometrics/merchant/data/verification/bvn";
+            var url = $"https://sandbox.myidentitypass.com/api/v1/biometrics/merchant/data/verification/voters_card";
 
             var result = await GetHttpClientSetup(url, value, secretKey);
 
-            var response = JsonSerializer.Deserialize<BvnVerificationLevelTwo>(result, _options);
+            var response = JsonSerializer.Deserialize<LookUpVinResponse>(result, _options);
 
-            var verificationDetails = new ClientResponse<BvnVerificationLevelTwo>
+            var verificationDetails = new ClientResponse<LookUpVinResponse>
             {
                 Value = response
             };
 
-            var res = new BvnResponse
+            var res = new VinResponse
             {
                 UserReferenceId = referenceId,
-                Response = verificationDetails
+                Response = verificationDetails,
+                Status = verificationDetails.Value.Status,
+                Details = verificationDetails.Value.Detail
             };
 
 
             return res;
         }
+
 
         protected virtual void Dispose(bool disposing)
         {
