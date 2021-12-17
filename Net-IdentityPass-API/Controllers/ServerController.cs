@@ -45,7 +45,7 @@ namespace Net_IdentityPass_API.Controllers
             // process the webHook
             await _webHookClient.MakeBvnVeririfcationHTTPRequest(request.Url, response);
 
-            return Ok(response);
+            return Ok(response.Status);
 
            
         }
@@ -59,7 +59,7 @@ namespace Net_IdentityPass_API.Controllers
             // process the webHook
             await _webHookClient.MakeCreditbureauVerificationHTTPRequest(request.Url, response);
 
-            return Ok(response);
+            return Ok(response.Status);
 
 
         }
@@ -73,7 +73,7 @@ namespace Net_IdentityPass_API.Controllers
             // process the webHook
             await _webHookClient.MakeDriversLicenseVerificationHTTPRequest(request.Url, response);
 
-            return Ok(response);
+            return Ok(response.Status);
 
 
         }
@@ -106,6 +106,7 @@ namespace Net_IdentityPass_API.Controllers
             var response = new BulkResponse
             {
                 Message = "bulk verification successful",
+                Status = bvnResponse.Status,
                 Bvn = bvnResponse,
                 DriverseLicense = driverLicenseResponse,
             };
@@ -113,7 +114,7 @@ namespace Net_IdentityPass_API.Controllers
             // process the webHook
             await _webHookClient.MakeBulkVerificationHTTPRequest(request.Url, response);
 
-            return Ok(response);
+            return Ok(response.Status);
 
 
         }

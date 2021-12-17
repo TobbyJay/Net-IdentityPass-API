@@ -41,6 +41,8 @@ namespace Services.Implementations
 
             var res = new CreditBureau
             {
+                Status = verificationDetails.Value.Status,
+                Details = verificationDetails.Value.Detail,
                 UserReferenceId = referenceId,
                 Response = verificationDetails
             };

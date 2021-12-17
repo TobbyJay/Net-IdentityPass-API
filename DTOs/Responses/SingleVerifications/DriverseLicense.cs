@@ -10,6 +10,8 @@ namespace DTOs.Responses.SingleVerifications
     {
         public string WebhookUrl { get; set; }
         public string UserReferenceId { get; set; }
+        public bool Status { get; set; }
+        public string Details { get; set; }
         public DriverseLicenseResponse Response { get; set; }
     }
 }
