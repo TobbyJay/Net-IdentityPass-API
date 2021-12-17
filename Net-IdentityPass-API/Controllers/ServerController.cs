@@ -54,7 +54,7 @@ namespace Net_IdentityPass_API.Controllers
             // process the webHook
             await _webHookClient.MakeHTTPRequest(request.Url, response);
 
-            return Ok(new { status = response.Status, response = response });
+            return Ok(new { status = response.Status, data = response });
 
         }
 
@@ -67,7 +67,7 @@ namespace Net_IdentityPass_API.Controllers
             // process the webHook
             await _webHookClient.MakeHTTPRequest(request.Url, response);
 
-            return Ok(new { status = response.Status, response = response });
+            return Ok(new { status = response.Status, data = response });
 
 
         }
@@ -82,7 +82,7 @@ namespace Net_IdentityPass_API.Controllers
             // process the webHook
             await _webHookClient.MakeHTTPRequest(request.Url, response);
 
-            return Ok(new { status = response.Status, response = response });
+            return Ok(new { status = response.Status, data = response });
         }
 
         [HttpPost("/api/server/verify/vin")]
@@ -95,7 +95,7 @@ namespace Net_IdentityPass_API.Controllers
             // process the webHook
             await _webHookClient.MakeHTTPRequest(request.Url, response);
 
-            return Ok(new { status = response.Status, response = response });
+            return Ok(new { status = response.Status, data = response });
         }
 
         [HttpPost]
@@ -107,8 +107,7 @@ namespace Net_IdentityPass_API.Controllers
             // process the webHook
             await _webHookClient.MakeHTTPRequest(request.Url, response);
 
-            return Ok(new { status = response.Status , response = response});
-
+            return Ok(new { status = response.Status, data = response });
 
         }
 
@@ -160,7 +159,7 @@ namespace Net_IdentityPass_API.Controllers
             // process the webHook
             await _webHookClient.MakeHTTPRequest(request.Url, response);
 
-            return Ok(new { status = response.Status, response = response });
+            return Ok(new { status = response.Status, data = response });
 
         }
 

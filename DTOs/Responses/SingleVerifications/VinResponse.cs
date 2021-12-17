@@ -12,6 +12,6 @@ namespace DTOs.Responses.SingleVerifications
         public string UserReferenceId { get; set; }
         public LookUpVinResponse Response { get; set; }
         public bool Status { get; set; }
-        public string Details { get; set; }
+        public string Message { get; set; }
     }
 }

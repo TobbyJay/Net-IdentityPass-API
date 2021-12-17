@@ -46,7 +46,7 @@ namespace Services.Implementations
                 UserReferenceId = referenceId,
                 Response = verificationDetails,
                 Status = verificationDetails.Value.Status,
-                Details = verificationDetails.Value.Detail                
+                Message = verificationDetails.Value.Detail                
             };
 
 
