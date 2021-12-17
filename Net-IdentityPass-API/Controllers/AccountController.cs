@@ -33,7 +33,8 @@ namespace Net_IdentityPass_API.Controllers
         [HttpPost]
         public async Task<IActionResult> LogIn(LoginViewModel model)
         {
-           
+            if (ModelState.IsValid)
+            {
                 var user = await _userManager.FindByEmailAsync(model.Email);
 
                 //var userRole = GetUserRole(user).Result;
@@ -48,7 +49,7 @@ namespace Net_IdentityPass_API.Controllers
                 }
 
                 ModelState.AddModelError(string.Empty, "Please check your credentials and try again");
-            
+            }
 
             return View(model);
         }
@@ -66,7 +67,8 @@ namespace Net_IdentityPass_API.Controllers
 
             try
             {
-               
+                if (ModelState.IsValid)
+                {
 
                     var user = new ApplicationUser
                     {
@@ -97,7 +99,7 @@ namespace Net_IdentityPass_API.Controllers
 
 
 
-                
+                }
             }
             catch (Exception error)
             {

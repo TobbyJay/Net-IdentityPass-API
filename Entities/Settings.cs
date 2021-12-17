@@ -8,7 +8,7 @@ namespace Entities
         public string CompanyName { get; set; }
         public string WebHookUrl { get; set; }
         public string SecretKey { get; set; }
-        public string VerificationTypes { get; set; }
+        public string? VerificationTypes { get; set; }
 
     }
 }
