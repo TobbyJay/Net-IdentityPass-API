@@ -49,7 +49,7 @@ namespace Net_IdentityPass_API.Controllers
                         CompanyName = settings.CompanyName,
                         SecretKey = secretKey,
                         WebHookUrl = settings.WebHookUrl,
-                        VerificationTypes = settings.VerificationTypes
+                        VerificationTypes = ""
                     };
                     _context.Add(setting);
                     _context.SaveChanges();
