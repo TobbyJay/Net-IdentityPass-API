@@ -96,7 +96,7 @@ namespace Net_IdentityPass_API.Controllers
                 {
                    bvnResponse = await _bvnVerificationTypes.VerfifyBvnInfoLevel2(request.BvnNumber, "test_231qza7t1kxejz21eg26e5:m1YlNf4sqfSQ0GEKnC8j2oZ-dyc", request.UserReferenceId);
 
-                }else if(type.Trim() == "drivers license")
+                }else if(type.Trim() == "drivers_license")
                 {
                     driverLicenseResponse = await _driversLicenseVerificationType.VerfifyDriversLicense(request.Dob, request.FrscNumber, "test_231qza7t1kxejz21eg26e5:m1YlNf4sqfSQ0GEKnC8j2oZ-dyc", request.UserReferenceId);
 
