@@ -70,7 +70,7 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
         name: "default",
-        pattern: "{controller=Account}/{action=LogIn}/{id?}");
+        pattern: "{controller=user}/{action=settings}/{id?}");
 });
 app.MapControllers();
 

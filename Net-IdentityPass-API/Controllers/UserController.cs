@@ -29,15 +29,32 @@ namespace Net_IdentityPass_API.Controllers
             // get and save company name and url
             if (!ModelState.IsValid)
             {
-                var setting = new Settings
+                if (string.IsNullOrWhiteSpace(settings.VerificationTypes))
                 {
-                    CompanyName = settings.CompanyName,
-                    SecretKey = secretKey,
-                    WebHookUrl = settings.WebHookUrl,
-                    VerificationTypes = settings.VerificationTypes
-                };
-                _context.Add(setting);
-                _context.SaveChanges();
+
+                    var setting = new Settings
+                    {
+                        CompanyName = settings.CompanyName,
+                        SecretKey = secretKey,
+                        WebHookUrl = settings.WebHookUrl,
+                        VerificationTypes = ""
+                    };
+                    _context.Add(setting);
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    var setting = new Settings
+                    {
+                        CompanyName = settings.CompanyName,
+                        SecretKey = secretKey,
+                        WebHookUrl = settings.WebHookUrl,
+                        VerificationTypes = settings.VerificationTypes
+                    };
+                    _context.Add(setting);
+                    _context.SaveChanges();
+                }
+              
 
             }
 

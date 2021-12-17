@@ -52,9 +52,11 @@ namespace Net_IdentityPass_API.Controllers
             var response = await _bvnVerificationTypes.VerfifyBvnInfoLevel2(request.BvnNumber, "test_231qza7t1kxejz21eg26e5:m1YlNf4sqfSQ0GEKnC8j2oZ-dyc", request.UserReferenceId);
 
             // process the webHook
-            await _webHookClient.MakeBvnVeririfcationHTTPRequest(request.Url, response);
+            await _webHookClient.MakeHTTPRequest(request.Url, response);
 
-            return Ok(response);           
+            return Ok(response.Status);
+
+           
         }
 
         [HttpPost]
@@ -64,9 +66,9 @@ namespace Net_IdentityPass_API.Controllers
             var response = await _creditBureauVerificationType.VerifyCreditBureau(request.PhoneNumber, request.FirstName, "test_231qza7t1kxejz21eg26e5:m1YlNf4sqfSQ0GEKnC8j2oZ-dyc", request.UserReferenceId);
 
             // process the webHook
-            await _webHookClient.MakeCreditbureauVerificationHTTPRequest(request.Url, response);
+            await _webHookClient.MakeHTTPRequest(request.Url, response);
 
-            return Ok(response);
+            return Ok(response.Status);
 
 
         }
@@ -104,9 +106,9 @@ namespace Net_IdentityPass_API.Controllers
             var response = await _driversLicenseVerificationType.VerfifyDriversLicense(request.Dob, request.FrscNumber, "test_231qza7t1kxejz21eg26e5:m1YlNf4sqfSQ0GEKnC8j2oZ-dyc", request.UserReferenceId);
 
             // process the webHook
-            await _webHookClient.MakeDriversLicenseVerificationHTTPRequest(request.Url, response);
+            await _webHookClient.MakeHTTPRequest(request.Url, response);
 
-            return Ok(response);
+            return Ok(response.Status);
 
 
         }
@@ -139,15 +141,15 @@ namespace Net_IdentityPass_API.Controllers
             var response = new BulkResponse
             {
                 Message = "bulk verification successful",
+                Status = bvnResponse.Status,
                 Bvn = bvnResponse,
                 DriverseLicense = driverLicenseResponse,
             };
 
             // process the webHook
-            await _webHookClient.MakeBulkVerificationHTTPRequest(request.Url, response);
+            await _webHookClient.MakeHTTPRequest(request.Url, response);
 
-            return Ok(response);
-
+            return Ok(response.Status);
 
         }
 

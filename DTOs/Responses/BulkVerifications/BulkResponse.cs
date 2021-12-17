@@ -14,6 +14,8 @@ namespace DTOs.Responses.BulkVerifications
         public CreditBureau CreditBureau { get; set; }
         public string WebhookUrl { get; set; }
         public string Message { get; set; }
+        public bool Status { get; set; }
+
 
 
 

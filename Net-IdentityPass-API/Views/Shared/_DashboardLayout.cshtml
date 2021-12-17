@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+
 </head>
 
 <body>
@@ -67,17 +69,17 @@
                         <ul class="navbar-nav navbar-nav-right">
                             <li class="nav-item nav-profile dropdown">
 
-                                <a class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+                              @*  <a class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
                                     @if (SignInManager.IsSignedIn(User))
                                     {
                                         <span class="nav-profile-name">Welcome...</span>
                                     }
                                     <img src="~/dashboardStyle/images/faces/face28.png" alt="profile" />
-                                </a>
-                                <a class="dropdown-item text-primary" asp-controller="account" asp-action="logout">
+                                </a>*@
+                              @*  <a class="dropdown-item text-primary" asp-controller="account" asp-action="logout">
                                     <i class="mdi mdi-power text-primary"></i>
                                     Log-out
-                                </a>
+                                </a>*@
                                
                             </li>
                             @*<li class="nav-item dropdown count-indicator arrow-none">
