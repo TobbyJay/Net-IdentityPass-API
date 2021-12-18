@@ -148,7 +148,7 @@ namespace Net_IdentityPass_API.Controllers
 
             var response = new BulkResponse
             {
-                Message = "bulk verification successful",
+                Message = "multiple verification successful",
                 Status = true,
                 Bvn = bvnResponse,
                 DriverseLicense = driverLicenseResponse,
