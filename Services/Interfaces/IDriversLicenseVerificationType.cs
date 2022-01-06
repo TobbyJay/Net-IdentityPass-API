@@ -1,10 +1,5 @@
-﻿using DTOs.Responses;
-using DTOs.Responses.SingleVerifications;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DTOs.Responses.SingleVerifications;
+
 
 namespace Services.Interfaces
 {

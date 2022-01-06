@@ -1,7 +1,8 @@
-﻿using DTOs.Responses;
+﻿using System.Text.Json;
+
+using DTOs.Responses;
 using DTOs.Responses.SingleVerifications;
 using Services.Interfaces;
-using System.Text.Json;
 
 namespace Services.Implementations
 {

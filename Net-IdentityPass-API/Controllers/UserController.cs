@@ -1,7 +1,9 @@
-﻿using Data;
-using Entities;
+﻿using System.Text.RegularExpressions;
+
 using Microsoft.AspNetCore.Mvc;
-using System.Text.RegularExpressions;
+
+using Data;
+using Entities;
 
 namespace Net_IdentityPass_API.Controllers
 {

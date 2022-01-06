@@ -1,6 +1,7 @@
-using Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+
+using Data;
 using Net_IdentityPass_API.Helpers;
 using Services.Implementations;
 using Services.Interfaces;
@@ -41,7 +42,9 @@ builder.Services.AddScoped<INinVerificationTypes, NinVerificationTypes>();
 builder.Services.AddScoped<IVinVerificationTypes, VinVerificationTypes>();
 builder.Services.AddScoped<ICreditBureauVerificationType, CreditBureauVerificationType>();
 builder.Services.AddScoped<IDriversLicenseVerificationType, DriversLicenseVerificationType>();
+
 builder.Services.AddHttpClient<IWebHookClient, WebHookClient>();
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy", builder =>

@@ -1,6 +1,7 @@
-﻿using Entities;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+
+using Entities;
 
 namespace Data
 {

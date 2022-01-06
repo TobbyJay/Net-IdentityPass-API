@@ -1,8 +1,9 @@
-﻿using Data;
+﻿using Microsoft.AspNetCore.Mvc;
+
+using Data;
 using DTOs.Requests;
 using DTOs.Responses.BulkVerifications;
 using DTOs.Responses.SingleVerifications;
-using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
 
 namespace Net_IdentityPass_API.Controllers

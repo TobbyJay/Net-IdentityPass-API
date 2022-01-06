@@ -1,6 +1,4 @@
-﻿using DTOs.Responses;
-using DTOs.Responses.BulkVerifications;
-using DTOs.Responses.SingleVerifications;
+﻿
 
 namespace Services.Interfaces
 {
